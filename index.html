@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Banco de Questões – Estudo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            background: #f7f7fb;
+            color: #222;
+        }
+
+        .card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .07);
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 1.6rem;
+        }
+
+        .meta {
+            color: #666;
+            font-size: .95rem;
+            margin-bottom: 16px;
+        }
+
+        .q {
+            font-size: 1.2rem;
+            margin: 12px 0 8px;
+        }
+
+        .a {
+            font-size: 1.05rem;
+            margin: 8px 0 0;
+            display: none;
+            border-left: 4px solid #ddd;
+            padding-left: 12px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: #2d6cdf;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        button.secondary {
+            background: #e5e7eb;
+            color: #111;
+        }
+
+        .counter {
+            margin-left: auto;
+            color: #555;
+            align-self: center;
+        }
+
+        @media (max-width: 600px) {
+            .counter {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Questões aleatórias – Treino</h1>
+        <div class="meta">Clique em “Mostrar resposta” para revelar. Use “Próxima” para passar de questão e
+            “Reembaralhar” para reiniciar a ordem.</div>
+
+        <div class="q" id="pergunta">Carregando…</div>
+        <div class="a" id="resposta"></div>
+
+        <div class="controls">
+            <button id="btnMostrar">Mostrar resposta</button>
+            <button id="btnProxima" class="secondary">Próxima</button>
+            <button id="btnReembaralhar" class="secondary">Reembaralhar</button>
+            <div class="counter" id="contador"></div>
+        </div>
+    </div>
+
+    <!-- JSON embutido para funcionar offline -->
+    <script type="application/json" id="dados">
+  {
+    "questoes": [
+      {"pergunta":"Defina ecossistema e cite seus componentes fundamentais.","resposta":"Ecossistema é a unidade formada pelos seres vivos (bióticos) e pelo meio físico (abióticos) que interagem por reciclagem de matéria e fluxo de energia. Inclui um ambiente de entrada (AE), um sistema delimitado (S) e um ambiente de saída (AS)."},
+      {"pergunta":"Qual a diferença entre hábitat e nicho ecológico?","resposta":"Hábitat é o 'endereço' físico onde a espécie vive; nicho ecológico é sua 'profissão', ou seja, o papel funcional e as relações que mantém com outras espécies e com o ambiente."},
+      {"pergunta":"Compare autótrofos fotossintetizantes e quimiossintetizantes.","resposta":"Fotossintetizantes usam luz solar para fixar carbono; quimiossintetizantes oxidam compostos inorgânicos (ex.: NH3, H2S) para obter energia e produzir matéria orgânica."},
+      {"pergunta":"Explique a diferença entre reciclagem de matéria e fluxo de energia no ecossistema.","resposta":"A matéria circula em ciclos biogeoquímicos e é reutilizada; a energia flui de forma unidirecional a partir do Sol e se dissipa, exigindo reposição contínua."},
+      {"pergunta":"Qual é o papel ecológico dos decompositores?","resposta":"Degradam matéria orgânica, liberando nutrientes ao solo e à água e fechando os ciclos, o que mantém a disponibilidade de elementos para os produtores."},
+      {"pergunta":"Diferencie respiração aeróbia e anaeróbia na reciclagem de matéria.","resposta":"Aeróbia oxida matéria orgânica em presença de O2, liberando CO2 e minerais solúveis; anaeróbia ocorre sem O2, formando CO2 e CH4, além de espécies reduzidas que serão reoxidáveis."},
+      {"pergunta":"Quais fatores físicos definem os biomas e como o solo influencia?","resposta":"Os biomas são definidos principalmente pelo clima (relacionado à latitude) e também pelo solo, cuja fertilidade e composição moldam a estrutura da comunidade biológica."},
+      {"pergunta":"O que é biosfera e quais 'esferas' a compõem?","resposta":"A biosfera é o conjunto de todos os ecossistemas do planeta, articulando litosfera (solo/rochas), hidrosfera (água) e atmosfera (camada gasosa)."},
+      {"pergunta":"Qual a distribuição aproximada da água na biosfera?","resposta":"Cerca de 97% está nos oceanos; do restante, ~3/4 está como gelo. A fração efetivamente disponível em rios e lagos é inferior a 0,01% do total."},
+      {"pergunta":"Como os ciclos biogeoquímicos são agrupados?","resposta":"Em ciclos dos elementos vitais (C, N, S, P) e no ciclo de um composto vital (água)."},
+      {"pergunta":"Quais processos dominam o ciclo da água?","resposta":"Precipitação, escoamento superficial, infiltração, evaporação e transpiração vegetal, conectando atmosfera, superfície e subsuperfície."},
+      {"pergunta":"Escreva as equações simplificadas de fotossíntese e respiração mencionadas.","resposta":"Fotossíntese: CO2 + H2O + hv → C6H12O6 + O2. Respiração: O2 + C6H12O6 → CO2 + H2O."},
+      {"pergunta":"Qual o papel do CO2 dissolvido nos ecossistemas aquáticos?","resposta":"Forma H2CO3, que se dissocia em HCO3− e CO3^2−, ajudando a regular o equilíbrio ácido-base e a disponibilidade de carbono inorgânico para organismos."},
+      {"pergunta":"Explique por que a queima de biocombustíveis é tratada de forma distinta da de fósseis.","resposta":"Embora ambos emitam CO2, o dos biocombustíveis pertence a um ciclo recente de carbono (retirado da atmosfera por plantas), enquanto os fósseis liberam carbono geologicamente estocado."},
+      {"pergunta":"Cite três grandes reservatórios/fluxos do carbono descritos.","resposta":"Florestas (biomassa e matéria orgânica morta), oceanos (fitoplâncton, dissolução/degaseificação) e reservatórios geológicos (sedimentos, petróleo)."},
+      {"pergunta":"Por que a maioria dos seres vivos não utiliza diretamente N2 atmosférico?","resposta":"A molécula N2 é muito estável devido à tripla ligação, exigindo processos específicos (biológicos ou físicos) para convertê-la em formas reativas."},
+      {"pergunta":"Compare fixação biológica e fixação atmosférica do N.","resposta":"A biológica, por bactérias (livres ou simbiontes), produz NH3/NH4+; a atmosférica, por descargas elétricas, gera NO3− e outras formas reativas."},
+      {"pergunta":"Descreva amonificação e nitrificação no solo.","resposta":"Amonificação: decompositores convertem N orgânico em NH3/NH4+. Nitrificação: NH4+ → NO2− → NO3− por bactérias nitrificantes em duas etapas."},
+      {"pergunta":"O que é desnitrificação e por que ela é importante?","resposta":"Processo microbiano que reduz NO3− a N2, devolvendo nitrogênio à atmosfera e fechando o balanço entre fixação e remoção."},
+      {"pergunta":"Explique o risco ecológico do excesso de N e P em águas.","resposta":"Estimula a eutrofização, com proliferação algal e queda de O2 dissolvido, prejudicando a fauna aquática e a qualidade da água."},
+      {"pergunta":"Como funciona a simbiose de leguminosas com bactérias fixadoras de N?","resposta":"Bactérias vivem em nódulos radiculares com baixo O2 e recebem carboidratos da planta; em troca, fornecem N reativo (NH3/NH4+) para síntese de aminoácidos/proteínas."},
+      {"pergunta":"De que duas formas a combustão libera NOx?","resposta":"Pelo N presente no combustível/biomassa e pela fixação térmica do N2 do ar em altas temperaturas, formando NO e NO2."},
+      {"pergunta":"Resuma o ciclo do enxofre enfatizando o papel microbiano.","resposta":"Sulfetos podem ser oxidados a S⁰ e depois a SO4^2−; os sulfatos são assimilados por organismos; a redução dissimilatória pode gerar H2S novamente, fechando a dinâmica redox."},
+      {"pergunta":"Por que o ciclo do fósforo é mais lento que outros?","resposta":"Não possui fase gasosa significativa e depende de intemperismo/erosão de rochas; parte do P deposita-se no fundo oceânico retornando lentamente (ex.: via guano)."},
+      {"pergunta":"Qual o papel regulador geral da atmosfera descrito?","resposta":"Controla entradas/saídas de energia, protege da radiação UV (camada de ozônio), regula a temperatura e transporta água, nutrientes e poluentes."},
+      {"pergunta":"Caracterize a troposfera.","resposta":"Vai até ~10–12 km, contém ~80% da massa do ar e praticamente todo o vapor d’água; fenômenos meteorológicos ocorrem ali e a temperatura decresce com a altitude."},
+      {"pergunta":"Por que a temperatura aumenta com a altitude na estratosfera?","resposta":"Devido à absorção da radiação UV pelo ozônio, que aquece essa camada."},
+      {"pergunta":"Dê uma característica marcante de mesosfera, termosfera e exosfera.","resposta":"Mesosfera: muito fria; termosfera: temperaturas altíssimas e ionização (auroras); exosfera: ar raríssimo, partículas podem escapar da gravidade terrestre."},
+      {"pergunta":"Qual a composição gasosa majoritária da atmosfera?","resposta":"Aproximadamente 78% N2, 21% O2 e ~1% outros gases (incluindo CO2, CH4, NOx, SOx, O3 e gases nobres)."},
+      {"pergunta":"Explique por que gases minoritários são ecologicamente relevantes.","resposta":"Apesar de traço, influenciam fortemente clima e processos químicos: CO2 na fotossíntese/efeito estufa; O3 protetor na estratosfera e poluente na troposfera; NOx/SOx em chuva ácida."},
+      {"pergunta":"Defina poluição atmosférica conforme o texto.","resposta":"É a alteração da composição ou propriedades do ar por poluentes que o tornam impróprio, nocivo ou incômodo a seres vivos e materiais."},
+      {"pergunta":"Dê exemplos de poluentes primários e secundários.","resposta":"Primários: CO, SO2, NO, material particulado, CH4. Secundários: H2SO4 (de SO2→SO3), ozônio troposférico e outros oxidantes formados na atmosfera."},
+      {"pergunta":"Por que combustão é central nas fontes antrópicas de poluição?","resposta":"Porque veículos, indústrias e termelétricas queimam combustíveis, emitindo CO2, NOx, SO2 (se houver S no combustível), COVs e partículas."},
+      {"pergunta":"Explique a toxicidade do CO para humanos.","resposta":"CO liga-se à hemoglobina com alta afinidade, bloqueando o transporte de O2 e podendo causar hipóxia e morte em altas concentrações."},
+      {"pergunta":"Compare CO2 e CH4 quanto ao efeito estufa.","resposta":"Ambos intensificam o aquecimento; o CH4 tem maior potencial de aquecimento por molécula, mas o CO2 é mais abundante e persistente, dominando o forçamento antrópico total."},
+      {"pergunta":"Quais impactos dos óxidos de enxofre?","resposta":"SO2 pode oxidar-se a SO3 e formar H2SO4 (chuva ácida), afetando sistema respiratório, corroendo materiais e contribuindo para smog industrial."},
+      {"pergunta":"Por que NOx é crítico para smog fotoquímico e chuva ácida?","resposta":"É precursor de HNO3 (chuva ácida) e, na presença de luz e COVs, leva à formação de O3 e oxidantes que caracterizam o smog fotoquímico."},
+      {"pergunta":"O que caracteriza o material particulado MP10 e por que é perigoso?","resposta":"Partículas ≤10 µm penetram nas vias aéreas inferiores, transportando tóxicos e causando inflamação, bronquite, asma e outros efeitos respiratórios."},
+      {"pergunta":"Descreva o equilíbrio fotoestacionário NO/NO2/O3 e a perturbação por COVs.","resposta":"NO2 fotodissocia-se em NO + O; O + O2 → O3; NO + O3 → NO2 + O2. COVs geram radicais (RO2·/HO2·) que consomem NO sem destruir O3, permitindo acumulação de ozônio."},
+      {"pergunta":"Compare smog fotoquímico e smog industrial quanto a condições e composição.","resposta":"Fotoquímico: cidades quentes/ensolaradas, O3 e oxidantes; industrial: cidades frias/úmidas, dominado por SO2 e partículas ácidas."},
+      {"pergunta":"O que é inversão térmica e por que agrava a poluição?","resposta":"É a formação de uma camada de ar quente sobre ar frio junto ao solo, bloqueando a convecção e aprisionando poluentes em altas concentrações perto da superfície."},
+      {"pergunta":"Resuma as reações-chave da chuva ácida para S e N.","resposta":"SO2 → SO3 → H2SO4 e, em solução, H2SO3 que oxida a H2SO4; para o N: NO2 + •OH → HNO3, além de reações com H2O gerando HNO2/HNO3."},
+      {"pergunta":"Diferencie efeito estufa natural e intensificado.","resposta":"O natural mantém temperatura média adequada; o intensificado decorre do aumento antropogênico de GEE cujos modos vibracionais absorvem IR, elevando o balanço energético."},
+      {"pergunta":"Cite consequências do aquecimento global.","resposta":"Elevação do nível do mar, eventos climáticos extremos, desertificação, alterações no regime de chuvas e impactos de saúde (vetores/doenças)."},
+      {"pergunta":"Explique o mecanismo de destruição catalítica do O3 por CFCs.","resposta":"CFCs fotodissociam na estratosfera liberando Cl·, que reage ciclicamente: Cl· + O3 → ClO· + O2; ClO· + O → Cl· + O2, resultando em O3 + O → 2 O2."},
+      {"pergunta":"Quais impactos do aumento de UVB na superfície?","resposta":"Maior incidência de câncer de pele e catarata, prejuízos à fotossíntese, queda de produtividade agrícola e aquática e efeitos imunológicos."},
+      {"pergunta":"Como a água doce está distribuída no Brasil?","resposta":"O país detém ~12% da água doce superficial mundial, porém ~78% está na Amazônia; o Sudeste tem ~6%, gerando descompasso entre oferta e demanda."},
+      {"pergunta":"Defina bacia hidrográfica e sua importância para gestão de recursos.","resposta":"É a área delimitada topograficamente que drena para um rio principal e seus afluentes; permite gestão integrada por unidade física de planejamento e uso múltiplo da água."},
+      {"pergunta":"Compare o papel dos compostos de enxofre e dos de nitrogênio na poluição regional.","resposta":"Compostos de S estão ligados a smog industrial e chuva ácida via H2SO4 (ácido sulfurico); compostos de N contribuem para HNO3 (ácido nítrico), smog fotoquímico e eutrofização aquática."},
+      {"pergunta":"Por que o H2S aparece no contexto de poluição do ar?","resposta":"É liberado em decomposição anaeróbia e em processos industriais (ex.: refino de petróleo), sendo tóxico e contribuindo para acidificação."},
+      {"pergunta":"Qual a diferença central entre poluente primário 'gás' e 'partícula' em termos de efeito?","resposta":"Gases reagem formando ácidos/oxidantes (efeitos químicos e fisiológicos); partículas atuam fisicamente e quimicamente nas vias aéreas e danificam materiais/visibilidade."},
+
+  {
+    "pergunta": "Explique a relação entre pH da água e fotossíntese durante o dia.",
+    "resposta": "A fotossíntese consome CO2 dissolvido; ao remover CO2, o equilíbrio H2CO3 ⇌ HCO3− ⇌ CO3^2− se desloca reduzindo [H+], elevando o pH. Por isso, em águas produtivas o pH tende a subir nas horas de maior luz."
+  },
+  {
+    "pergunta": "Por que o pH costuma cair à noite em lagos eutróficos?",
+    "resposta": "À noite predomina respiração/decomposição, que libera CO2. O aumento de CO2 desloca o sistema carbonato para H2CO3, elevando [H+] e reduzindo o pH."
+  },
+  {
+    "pergunta": "Como o sistema carbonato (H2CO3/HCO3−/CO3^2−) atua como tampão em ambientes aquáticos?",
+    "resposta": "Ele neutraliza ácidos e bases adicionados convertendo entre H2CO3, HCO3− e CO3^2−. Alta reserva de HCO3−/CO3^2− amortiza variações de pH causadas por fotossíntese/respiração e entradas externas."
+  },
+  {
+    "pergunta": "Qual o papel da difusão ar-água de CO2 no controle do pH superficial de lagos e oceanos?",
+    "resposta": "A difusão repõe CO2 à coluna d’água quando o consumo fotossintético o reduz (pH sobe) e remove CO2 quando está em excesso (pH cai), acoplando o balanço de carbono ao pH."
+  },
+  {
+    "pergunta": "Como a alcalinidade influencia a amplitude diária de pH em um reservatório produtivo?",
+    "resposta": "Maior alcalinidade (estoque de HCO3−/CO3^2−) aumenta a capacidade tampão, reduzindo a amplitude diária do pH frente ao consumo/produção de CO2."
+  },
+  {
+    "pergunta": "Compare vias de formação de H2SO4 na atmosfera em termos mecanísticos.",
+    "resposta": "No gás: SO2 + •OH → HSO3•; HSO3• + O2 → SO3, que hidrata a H2SO4. Em fase aquosa: SO2(g) → SO2·H2O/H2SO3, que é oxidado (O2/•OH) a H2SO4."
+  },
+  {
+    "pergunta": "Por que a chuva ácida é considerada impacto em escala regional?",
+    "resposta": "SO2/NOx podem ser transportados a médias distâncias e, após oxidação a H2SO4/HNO3 em nuvens/aerossóis, acidificam precipitações em regiões a sotavento das fontes emissoras."
+  },
+  {
+    "pergunta": "Explique o estado fotoestacionário NO/NO2/O3 e o papel dos COVs no acúmulo de ozônio.",
+    "resposta": "Sem COVs: NO2 + hν → NO + O; O + O2 → O3; NO + O3 → NO2 + O2 (equilíbrio). Com COVs, RO2•/HO2• oxidam NO a NO2 sem consumir O3, quebrando o equilíbrio e permitindo acúmulo de O3."
+  },
+  {
+    "pergunta": "Por que episódios de smog fotoquímico são mais intensos em dias quentes e ensolarados?",
+    "resposta": "A fotólise de NO2 e a formação de radicais oxidantes aceleram com a radiação solar; temperaturas mais altas favorecem reatividade e emissão/evaporação de COVs, elevando o O3 troposférico."
+  },
+  {
+    "pergunta": "Quais impactos diretos do ozônio troposférico sobre plantas e agricultura?",
+    "resposta": "O3 reduz a taxa fotossintética e a capacidade de troca gasosa, causando estresse oxidativo, queda de produtividade e danos foliares em culturas sensíveis."
+  },
+  {
+    "pergunta": "Diferencie smog industrial de smog fotoquímico quanto à composição dominante.",
+    "resposta": "Smog industrial é dominado por SO2/partículas ácidas; o fotoquímico é dominado por O3 e oxidantes secundários formados de NOx + COVs sob luz."
+  },
+  {
+    "pergunta": "Por que partículas finas (MP10 e menores) apresentam maior risco à saúde?",
+    "resposta": "Por seu diâmetro reduzido, penetram até bronquíolos/alvéolos, carregando compostos tóxicos e induzindo inflamação, bronquite e outros agravos respiratórios."
+  },
+  {
+    "pergunta": "Como turbidez elevada prejudica a desinfecção por cloro no tratamento de água?",
+    "resposta": "Sólidos suspensos protegem microrganismos e consomem oxidante, reduzindo a eficiência da desinfecção; águas muito turvas exigem coagulação/decantação prévias."
+  },
+  {
+    "pergunta": "Relacione a presença de H2S em águas com condições redox e percepção sensorial.",
+    "resposta": "H2S é típico de ambientes anaeróbios (decomposição), tem odor de ovo podre e pode estar dissolvido na água, influenciando sabor/odor e indicando condições redutoras."
+  },
+  {
+    "pergunta": "Explique por que NOx é emitido mesmo quando o combustível não contém nitrogênio.",
+    "resposta": "A altas temperaturas, N2 do ar reage com O2 (fixação térmica), formando NO que oxida a NO2, gerando NOx mesmo sem N no combustível."
+  },
+  {
+    "pergunta": "Descreva um caminho microbiano completo no ciclo do enxofre do ponto de vista redox.",
+    "resposta": "Matéria orgânica → S^2− (ambiente reduzido) → oxidação a S^0 e depois a SO4^2− (ambiente oxigenado) → assimilação biológica → decomposição → redução dissimilatória de SO4^2− a H2S."
+  },
+  {
+    "pergunta": "Escreva uma sequência plausível para formação de HNO3 a partir de NO2 na troposfera.",
+    "resposta": "A via principal é radicalar: NO2 + •OH → HNO3 (g/aq). Em presença de água pode ocorrer 2 NO2 + H2O → HNO2 + HNO3 em fase aquosa."
+  },
+  {
+    "pergunta": "Como o fluxo unidirecional de energia limita o comprimento das cadeias alimentares?",
+    "resposta": "Perdas de energia em cada transferência (calor/trabalho) reduzem a eficiência trófica; com pouca energia disponível nos níveis superiores, as cadeias tendem a ser curtas."
+  },
+  {
+    "pergunta": "Conecte o balanço de carbono em ecossistemas aéreos e aquáticos às emissões antrópicas.",
+    "resposta": "Fotossíntese fixa CO2 em biomassa; respiração/decomposição devolvem CO2. Difusão ar-água controla o carbono inorgânico dissolvido. A combustão amplifica o estoque atmosférico, alterando esses equilíbrios locais."
+  },
+    {
+    "pergunta": "Qual é a relação entre eutrofização e pH ao longo do dia em um lago?",
+    "resposta": "Durante o dia, a fotossíntese consome CO2 e o pH tende a subir; à noite, a respiração/decomposição libera CO2 e o pH tende a cair. Em sistemas muito eutrofizados a amplitude diária do pH é maior."
+  },
+  {
+    "pergunta": "Como a eutrofização afeta o oxigênio dissolvido (OD) e o risco de mortandade de peixes?",
+    "resposta": "Blooms elevam o OD durante o dia pela fotossíntese, mas o consumo de oxigênio à noite e na decomposição da biomassa pode derrubar o OD a níveis críticos, aumentando o risco de anoxia e mortandade."
+  },
+  {
+    "pergunta": "Explique a relação entre DBO e OD em um rio que recebe esgoto doméstico.",
+    "resposta": "A DBO elevada indica muita matéria orgânica biodegradável; microrganismos consomem mais oxigênio para degradá-la, reduzindo o OD. Assim, DBO alta tende a significar OD baixo a jusante do lançamento."
+  },
+  {
+    "pergunta": "Qual a diferença conceitual entre DBO e DQO e quando cada uma é mais útil?",
+    "resposta": "DBO mede a fração biodegradável consumindo O2 em dias de incubação; DQO mede a oxidação química total. DBO é útil para estimar carga biodegradável e dimensionar biotratamentos; DQO é mais rápida e captura frações não biodegradáveis."
+  },
+  {
+    "pergunta": "Como a temperatura da água influencia o oxigênio dissolvido e a vida aquática?",
+    "resposta": "Águas mais quentes dissolvem menos oxigênio; portanto, o mesmo consumo de O2 é mais crítico em altas temperaturas, estressando peixes e invertebrados."
+  },
+  {
+    "pergunta": "Relacione TSS (sólidos suspensos totais), turbidez e eficiência de decantação.",
+    "resposta": "TSS elevam a turbidez e podem dificultar a desinfecção; coagulação/floculação seguida de decantação reduz TSS e turbidez, melhorando a qualidade e a eficiência das etapas seguintes."
+  },
+  {
+    "pergunta": "Explique a diferença entre ST, SDT e SST e como cada um é medido.",
+    "resposta": "ST são os sólidos totais após secagem da amostra bruta. SDT são os sólidos do filtrado (o que passa no filtro) secos; SST são os sólidos retidos no filtro e secos. A filtração separa dissolvidos (SDT) de suspensos (SST)."
+  },
+  {
+    "pergunta": "O que significa separar sólidos em frações fixas e voláteis (SDF/SDV, SSF/SSV) e por que isso é útil?",
+    "resposta": "A calcinação queima a fração orgânica (volátil) e deixa a mineral (fixa). A separação indica se a carga é predominantemente orgânica (tratável biologicamente) ou mineral (mais inerte)."
+  },
+  {
+    "pergunta": "Como a urbanização e a impermeabilização do solo alteram a qualidade da água de chuva que chega aos rios?",
+    "resposta": "Aumentam o escoamento superficial e o “first flush” de poluentes (óleos, metais, sólidos), elevando TSS, turbidez e coliformes, além de picos de vazão que agravam erosão e assoreamento."
+  },
+  {
+    "pergunta": "Explique por que a presença de coliformes termotolerantes é um bom indicador de contaminação fecal recente.",
+    "resposta": "Essas bactérias vivem no intestino de animais e não persistem longamente no ambiente; sua detecção indica aporte recente de esgotos ou fezes de animais, sinalizando risco sanitário."
+  },
+  {
+    "pergunta": "Qual a diferença entre fontes pontuais e difusas de poluição e dê um exemplo de cada.",
+    "resposta": "Ponto pontual tem descarga localizada e identificável (ex.: emissário de ETE). Fonte difusa é espalhada no território (ex.: escorrimento agrícola com fertilizantes)."
+  },
+  {
+    "pergunta": "Como matas ciliares contribuem para reduzir eutrofização em reservatórios a jusante?",
+    "resposta": "Agem como filtros, retendo sedimentos e parte dos nutrientes do escoamento superficial, diminuindo o aporte de N e P aos corpos d’água."
+  },
+  {
+    "pergunta": "Quais são as principais etapas do tratamento de água e o objetivo de cada uma em termos simples?",
+    "resposta": "Coagulação/floculação (agregar partículas), decantação (remover flocos), filtração (refinar remoção de sólidos), desinfecção (inativar patógenos) e ajustes (pH, correção de corrosividade)."
+  },
+  {
+    "pergunta": "Compare tratamento primário, secundário e terciário em esgotos.",
+    "resposta": "Primário remove sólidos por processos físicos; secundário remove matéria orgânica biodegradável via processos biológicos; terciário remove nutrientes ou poluentes específicos (N, P, microcontaminantes)."
+  },
+  {
+    "pergunta": "Em que situações um reator anaeróbio é vantajoso no tratamento de esgotos?",
+    "resposta": "Quando a carga orgânica é alta e a temperatura favorece a digestão; produz menos lodo, gera biogás e demanda menos energia que processos aeróbios."
+  },
+  {
+    "pergunta": "Explique por que a cloração é menos eficiente em águas com alta turbidez.",
+    "resposta": "Partículas protegem microrganismos e consomem parte do desinfetante; por isso, é fundamental reduzir turbidez antes da desinfecção."
+  },
+  {
+    "pergunta": "Como a inversão térmica urbana afeta as concentrações de poluentes atmosféricos?",
+    "resposta": "Uma camada de ar quente sobre ar frio inibe a dispersão vertical, aprisionando poluentes (CO, NOx, material particulado) próximos ao solo e elevando concentrações."
+  },
+  {
+    "pergunta": "Diferencie smog industrial e smog fotoquímico quanto a clima típico e composição dominante.",
+    "resposta": "Smog industrial ocorre em clima frio/úmido e é dominado por SO2 e partículas ácidas; o fotoquímico ocorre em clima quente/ensolarado e é dominado por ozônio e oxidantes formados de NOx + COVs."
+  },
+  {
+    "pergunta": "O que é chuva ácida e quais são seus principais impactos ambientais e materiais?",
+    "resposta": "Precipitação com acidez aumentada por ácidos formados de SOx/NOx; acidifica solos e águas, mobiliza metais, prejudica vegetação e corrói materiais (metais, calcário, mármore)."
+  },
+  {
+    "pergunta": "Explique a diferença entre efeito estufa e camada de ozônio em uma frase comparativa.",
+    "resposta": "Efeito estufa refere-se ao aquecimento por gases que retêm calor na troposfera; a camada de ozônio estratosférico protege contra UVB—são fenômenos distintos."
+  },
+  {
+    "pergunta": "Por que PM2,5 é geralmente considerado mais crítico à saúde do que PM10?",
+    "resposta": "Partículas finas (≤2,5 µm) penetram mais profundamente no sistema respiratório, alcançando alvéolos e associando-se a maiores riscos cardiovasculares e respiratórios."
+  },
+  {
+    "pergunta": "Compare, de forma geral, as emissões típicas de veículos a gasolina e a diesel.",
+    "resposta": "Motores a gasolina tendem a emitir mais CO e COVs; motores a diesel emitem mais NOx e material particulado fino, exigindo controle específico (ex.: filtros de partículas)."
+  },
+  {
+    "pergunta": "Descreva brevemente a hierarquia de resíduos e seu objetivo principal.",
+    "resposta": "Prioriza prevenção, redução, reutilização, reciclagem, recuperação (inclui compostagem/energia) e, por último, disposição final, visando minimizar impactos e uso de recursos."
+  },
+  {
+    "pergunta": "Qual a diferença prática entre lixão e aterro sanitário?",
+    "resposta": "Lixão é disposição a céu aberto sem controle; aterro sanitário tem impermeabilização, drenagem de chorume e gases, cobertura diária e monitoramento ambiental."
+  },
+  {
+    "pergunta": "O que é chorume e quais os principais riscos associados?",
+    "resposta": "É o líquido percolado rico em matéria orgânica, metais e sais gerado em áreas de resíduos; sem controle, contamina solos e águas subterrâneas, exigindo coleta e tratamento."
+  },
+  {
+    "pergunta": "Quando a compostagem é preferível à disposição em aterro para resíduos orgânicos?",
+    "resposta": "Quando há coleta segregada de orgânicos e demanda por composto; reduz metano gerado em aterros, fecha ciclos de nutrientes e diminui a massa destinada à disposição final."
+  },
+  {
+    "pergunta": "Para que serve o EIA/RIMA no contexto de grandes empreendimentos?",
+    "resposta": "Avaliar impactos ambientais significativos, propor medidas de mitigação/compensação e comunicar os resultados de forma técnica (EIA) e acessível à sociedade (RIMA)."
+  },
+  {
+    "pergunta": "Como a manutenção de áreas verdes urbanas influencia ilhas de calor e a qualidade do ar?",
+    "resposta": "Vegetação aumenta sombreamento e evapotranspiração, reduzindo temperaturas locais e contribuindo para a deposição e assimilação de alguns poluentes."
+  },
+  {
+    "pergunta": "Qual é o efeito típico de práticas agrícolas com uso intensivo de fertilizantes sobre corpos d’água próximos?",
+    "resposta": "Aumentam o aporte difuso de nitrogênio e fósforo por escoamento e lixiviação, elevando o risco de eutrofização, blooms e oscilações de pH e OD."
+  },
+  {
+    "pergunta": "Explique por que reservatórios eutrofizados apresentam maior variação diária de pH do que sistemas oligotróficos.",
+    "resposta": "A alta biomassa fotossintética consome mais CO2 em horas de luz (pH sobe) e a respiração/decomposição é mais intensa no escuro (pH cai), ampliando a variação diária."
+  },
+  {
+    "pergunta": "Que medidas de baixo custo podem reduzir a carga difusa de sedimentos e nutrientes em bacias rurais?",
+    "resposta": "Matas ciliares contínuas, terraceamento, plantio direto, curvas de nível e faixas de retenção reduzem velocidade do escoamento e interceptam sedimentos e parte dos nutrientes."
+  },
+  {
+    "pergunta": "Como a coleta seletiva impacta logística e qualidade dos materiais recicláveis?",
+    "resposta": "Melhora a qualidade do material, reduz contaminações, aumenta valor agregado e eficiência logística, facilitando a triagem e a comercialização."
+  },
+  {
+    "pergunta": "Por que é importante monitorar pH, OD, turbidez, DBO e nutrientes de forma integrada?",
+    "resposta": "Porque esses parâmetros se influenciam mutuamente: nutrientes afetam blooms e pH; matéria orgânica afeta DBO e OD; turbidez interfere em desinfecção e habitat aquático."
+  },
+  {
+    "pergunta": "Como a cobertura vegetal influencia a recarga de aquíferos e o regime de vazões de um rio?",
+    "resposta": "Vegetação aumenta infiltração e armazenamento no solo, favorece a recarga do aquífero e sustenta vazões de estiagem; desmatamento eleva escoamento rápido, picos de cheia e seca mais severa."
+  },
+  {
+    "pergunta": "Por que redes unitárias (esgoto + chuva juntas) sobrecarregam estações de tratamento em temporais?",
+    "resposta": "A água de chuva dilui o esgoto, mas aumenta muito a vazão, excede a capacidade hidráulica e reduz a eficiência, podendo causar bypass e lançamento de efluente parcialmente tratado."
+  },
+  {
+    "pergunta": "Quais indicadores básicos avaliam balneabilidade em praias e rios recreacionais?",
+    "resposta": "Indicadores microbiológicos como Escherichia coli ou enterococos, avaliados em séries temporais, associados a condições de chuva e presença de fontes de contaminação."
+  },
+  {
+    "pergunta": "Qual a diferença entre controle na fonte e soluções ‘fim de tubo’ na gestão da poluição?",
+    "resposta": "Controle na fonte evita ou minimiza a geração do poluente (processo/insumo); fim de tubo trata o poluente após gerado. Prevenção costuma ser mais efetiva e barata no ciclo de vida."
+  },
+  {
+    "pergunta": "Quais elementos mínimos de um plano de monitoramento ambiental em um rio urbano?",
+    "resposta": "Objetivos, parâmetros (OD, DBO, nutrientes, TSS, microbiologia), pontos a montante/jusante, frequência sazonal, metodologia de amostragem e QA/QC, além de registro de vazões."
+  },
+  {
+    "pergunta": "Por que medir vazão é tão importante quanto medir concentração de poluentes?",
+    "resposta": "Porque impacto ecológico depende da carga (massa/tempo), que é concentração × vazão; sem vazão, não se estima o transporte real do poluente."
+  },
+  {
+    "pergunta": "Quando usar amostra composta em vez de amostra pontual em afluentes industriais?",
+    "resposta": "Quando há forte variação ao longo do tempo (bateladas); a composta integra múltiplos subalíquotas e representa melhor a média do período."
+  },
+  {
+    "pergunta": "Qual é o comportamento típico do OD em um rio após um lançamento orgânico?",
+    "resposta": "OD cai a jusante por consumo microbiano (déficit), atinge um mínimo e depois se recupera pela reaeração e diluição, dependendo da vazão e da DBO."
+  },
+  {
+    "pergunta": "Quais ações imediatas são recomendadas após derramamento de óleo em um córrego?",
+    "resposta": "Isolar a área, interromper a fonte, instalar barreiras de contenção/absorventes, recolher resíduos, notificar autoridades e monitorar água e sedimento a jusante."
+  },
+  {
+    "pergunta": "Por que o planejamento industrial deve considerar ventos predominantes na qualidade do ar?",
+    "resposta": "Porque a direção e velocidade dos ventos determinam o transporte/dispersão de poluentes; implantar a sotavento de áreas sensíveis reduz a exposição da população."
+  },
+  {
+    "pergunta": "Quais são as principais fontes de ruído urbano e duas medidas mitigadoras?",
+    "resposta": "Trânsito, obras e atividades comerciais. Mitigações: barreiras acústicas e planejamento viário/horários; manutenção de veículos e fiscalização de níveis sonoros."
+  },
+  {
+    "pergunta": "Cite três benefícios de telhados e paredes verdes em cidades.",
+    "resposta": "Reduzem temperatura superficial (ilha de calor), retêm água de chuva (pico de escoamento) e melhoram conforto/acústica e biodiversidade urbana."
+  },
+  {
+    "pergunta": "Como materiais urbanos de alto albedo e áreas sombreadas atuam nas ilhas de calor?",
+    "resposta": "Superfícies de alto albedo refletem mais radiação e esquentam menos; sombreamento de árvores reduz aquecimento de pavimentos e ar adjacente."
+  },
+  {
+    "pergunta": "O que caracteriza a gestão por bacia hidrográfica e por que é recomendada?",
+    "resposta": "Bacia é a unidade física de drenagem; gerir por bacia integra usos da água, fontes difusas e pontuais, promovendo decisões coordenadas entre municípios."
+  },
+  {
+    "pergunta": "Quais usos típicos de reuso não potável em indústrias e edifícios?",
+    "resposta": "Torre de resfriamento, lavagem de pisos e veículos, irrigação de jardins, descarga de sanitários e processos que não exigem água potável."
+  },
+  {
+    "pergunta": "Como avaliar rapidamente o desempenho de uma ETE municipal com dados rotineiros?",
+    "resposta": "Comparar remoções percentuais efluente/afluente para DBO, TSS, nutrientes e coliformes, checar vazões e estabilidade operacional ao longo do tempo."
+  },
+  {
+    "pergunta": "Principais causas de odores em ETE e duas medidas de mitigação?",
+    "resposta": "Geração de H2S e compostos voláteis em zonas anaeróbias. Mitigações: coberturas com exaustão e tratamento de ar (biofiltros) e operação que evite zonas sépticas."
+  },
+  {
+    "pergunta": "Quais rotas usuais de destino para lodo de ETE e um critério de escolha?",
+    "resposta": "Aterro sanitário, compostagem/digestão e uso agrícola condicionado. Escolha depende de qualidade sanitária/química do lodo e viabilidade logística."
+  },
+  {
+    "pergunta": "Quando optar por compostagem versus digestão anaeróbia de resíduos orgânicos?",
+    "resposta": "Compostagem quando se busca condicionador de solo e há mistura seca; digestão quando se deseja recuperar energia (biogás) e lidar com resíduos mais úmidos."
+  },
+  {
+    "pergunta": "Qual a função da educação ambiental em programas de saneamento e resíduos?",
+    "resposta": "Mudar hábitos de consumo e descarte, apoiar adesão à coleta seletiva e reduzir ligações irregulares e despejos, aumentando a eficácia das soluções técnicas."
+  },
+  {
+    "pergunta": "O que é pagamento por serviços ambientais (PSA) e um exemplo prático?",
+    "resposta": "Instrumento que remunera quem conserva ecossistemas que prestam serviços (água, carbono). Ex.: produtores que mantêm matas ciliares para proteger nascentes."
+  },
+  {
+    "pergunta": "Como instrumentos econômicos podem incentivar tecnologias limpas?",
+    "resposta": "Tarifas/tributos para poluição e subsídios/financiamento para controle/eficiência alteram incentivos, tornando opções limpas mais competitivas."
+  },
+  {
+    "pergunta": "O que são, em termos gerais, Escopos 1, 2 e 3 em inventários de GEE?",
+    "resposta": "Escopo 1: emissões diretas da organização; Escopo 2: eletricidade/energia comprada; Escopo 3: cadeia de valor (fornecedores, uso de produtos, viagens)."
+  },
+  {
+    "pergunta": "Qual a diferença entre consumo direto de água e pegada hídrica de um produto?",
+    "resposta": "Consumo direto é a água usada no local; pegada hídrica inclui toda água embutida ao longo da cadeia de suprimentos e produção."
+  },
+  {
+    "pergunta": "Para que serve a Avaliação do Ciclo de Vida (ACV) em decisões de compra pública?",
+    "resposta": "Compara impactos ambientais de alternativas ‘berço-ao-túmulo’, permitindo escolher materiais/processos com menor impacto total e custo do ciclo de vida."
+  },
+  {
+    "pergunta": "Quais critérios práticos para escolher pontos de amostragem em um rio receptor?",
+    "resposta": "Ponto de referência a montante, pontos próximos e mais distantes a jusante, confluências relevantes e locais de uso (captação, recreação)."
+  },
+  {
+    "pergunta": "Por que QA/QC, calibração de equipamentos e cadeia de custódia são cruciais?",
+    "resposta": "Garantem rastreabilidade e confiabilidade dos dados; sem isso, resultados podem ser contestados e decisões se tornarem inseguras."
+  },
+  {
+    "pergunta": "Como wetlands construídos podem atuar no pós-tratamento de efluentes?",
+    "resposta": "Funcionam como polidores naturais, removendo sólidos, matéria orgânica e nutrientes via sedimentação, filtração, plantas e biofilmes."
+  },
+  {
+    "pergunta": "Explique o conceito de barreiras múltiplas na segurança da água potável.",
+    "resposta": "Proteção da bacia, tratamento adequado, reservação e integridade da rede; redundâncias que evitam que uma falha única comprometa a qualidade."
+  },
+  {
+    "pergunta": "O que é justiça ambiental e um exemplo em planejamento urbano?",
+    "resposta": "Distribuição equitativa de riscos e benefícios ambientais; ex.: evitar concentrar aterros e indústrias poluentes em bairros vulneráveis sem participação social."
+  }
+    ]
+  }
+  </script>
+
+    <script>
+        // Utilidade: embaralhar array (Fisher–Yates)
+        function shuffle(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        // Carrega JSON embutido
+        function loadEmbeddedJSON() {
+            const raw = document.getElementById('dados').textContent.trim();
+            return JSON.parse(raw).questoes;
+        }
+
+        // Estado
+        let questoes = loadEmbeddedJSON();
+        let ordem = shuffle(questoes);
+        let idx = 0;
+
+        const elQ = document.getElementById('pergunta');
+        const elA = document.getElementById('resposta');
+        const elBtnMostrar = document.getElementById('btnMostrar');
+        const elBtnProxima = document.getElementById('btnProxima');
+        const elBtnRe = document.getElementById('btnReembaralhar');
+        const elCounter = document.getElementById('contador');
+
+        function render() {
+            const q = ordem[idx];
+            elQ.textContent = q.pergunta;
+            elA.textContent = q.resposta;
+            elA.style.display = 'none';
+            elCounter.textContent = `Questão ${idx + 1} de ${ordem.length}`;
+        }
+
+        elBtnMostrar.addEventListener('click', () => {
+            elA.style.display = (elA.style.display === 'none') ? 'block' : 'none';
+        });
+
+        elBtnProxima.addEventListener('click', () => {
+            idx++;
+            if (idx >= ordem.length) {
+                ordem = shuffle(questoes);
+                idx = 0;
+            }
+            render();
+        });
+
+        elBtnRe.addEventListener('click', () => {
+            ordem = shuffle(questoes);
+            idx = 0;
+            render();
+        });
+
+        render();
+    </script>
+</body>
+
+</html>
